@@ -9,10 +9,14 @@ import android.view.WindowManager;
 import org.opencv.android.CameraBridgeViewBase;
 import org.opencv.core.Mat;
 
-public class MainActivity extends Activity implements CameraBridgeViewBase.CvCameraViewListener2 {
-    private static final String TAG = "OCV::CameraActivity";
+import butterknife.Bind;
+import butterknife.ButterKnife;
 
-    private CameraBridgeViewBase mOpenCvCameraView;
+public class MainActivity extends Activity implements CameraBridgeViewBase.CvCameraViewListener2 {
+    private static final String TAG = "OpenCV::CameraActivity";
+
+    @Bind(R.id.main_activity_java_surface_view)
+    CameraBridgeViewBase mOpenCvCameraView;
 
     static {
         System.loadLibrary("opencv_java3"); // libopencv_java3.so located at jniLibs directory
@@ -28,8 +32,8 @@ public class MainActivity extends Activity implements CameraBridgeViewBase.CvCam
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
         setContentView(R.layout.activity_main);
+        ButterKnife.bind(this);
 
-        mOpenCvCameraView = (CameraBridgeViewBase) findViewById(R.id.main_activity_java_surface_view);
         mOpenCvCameraView.setVisibility(SurfaceView.VISIBLE);
         mOpenCvCameraView.setCvCameraViewListener(this);
     }
